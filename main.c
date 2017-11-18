@@ -65,12 +65,15 @@ int main() {
     // Wait for a time when the CRT is not drawing on the screen
     VDP_waitVSync();
 
-    // Clear the text from its previous position
-    VDP_clearTextLine(y);
+    // Check for changes in the character position
+    if (new_x != x || new_y != y) {
+      // Clear the text from its previous position
+      VDP_drawText(" ", x, y);
 
-    // Draw the text at the new position
-    x = new_x;
-    y = new_y;
-    VDP_drawText(msg, x, y);
+      // Draw the text at the new position
+      x = new_x;
+      y = new_y;
+      VDP_drawText(msg, x, y);
+    }
   }
 }
